@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState();
 
     const history = useHistory();
 
@@ -16,8 +16,10 @@ const ChatProvider = ({ children }) => {
         setUser(userInfo);
 
         if (!userInfo) {
-            history.push("/")
+
+            history.push('/')
         }
+        
     }, [history]);
 
     
