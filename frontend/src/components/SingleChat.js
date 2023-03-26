@@ -8,11 +8,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import ProfileModal from "./miscellaneous/ProfileModal";
-// import ScrollableChat from "./ScrollableChat";
-// import Lottie from "react-lottie";
-// import animationData from "../animations/typing.json";
+import Lottie from "react-lottie";
+import animationData from "../animations/typing.json";
 
-// import io from "socket.io-client";
+import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
 import ScrollableChat from "./ScrollableChat";
@@ -31,7 +30,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    // animationData: animationData,
+    animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -55,7 +54,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         `/api/message/${selectedChat._id}`,
         config
       );
-      console.log(messages)
+    
       setMessages(data);
       setLoading(false);
 
@@ -74,7 +73,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
-      // socket.emit("stop typing", selectedChat._id);
+      socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
           headers: {
@@ -108,11 +107,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   };
 
   useEffect(() => {
-    // socket = io(ENDPOINT);
-    // socket.emit("setup", user);
-    // socket.on("connected", () => setSocketConnected(true));
-    // socket.on("typing", () => setIsTyping(true));
-    // socket.on("stop typing", () => setIsTyping(false));
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+    socket.on("typing", () => setIsTyping(true));
+    socket.on("stop typing", () => setIsTyping(false));
 
     // eslint-disable-next-line
   }, []);
@@ -124,21 +123,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     // eslint-disable-next-line
   }, [selectedChat]);
 
-//   useEffect(() => {
-//     socket.on("message recieved", (newMessageRecieved) => {
-//       if (
-//         !selectedChatCompare || // if chat is not selected or doesn't match current chat
-//         selectedChatCompare._id !== newMessageRecieved.chat._id
-//       ) {
-//         if (!notification.includes(newMessageRecieved)) {
-//           setNotification([newMessageRecieved, ...notification]);
-//           setFetchAgain(!fetchAgain);
-//         }
-//       } else {
-//         setMessages([...messages, newMessageRecieved]);
-//       }
-//     });
-//   });
+
+  useEffect(() => {
+    socket.on("message recieved", (newMessageRecieved) => {
+      if (
+        !selectedChatCompare || // if chat is not selected or doesn't match current chat
+        selectedChatCompare._id !== newMessageRecieved.chat._id
+      ) {
+        if (!notification.includes(newMessageRecieved)) {
+          setNotification([newMessageRecieved, ...notification]);
+          setFetchAgain(!fetchAgain);
+        }
+      } else {
+        setMessages([...messages, newMessageRecieved]);
+      }
+    });
+  });
 
   const typingHandler = (e) => {
     setNewMessage(e.target.value);
