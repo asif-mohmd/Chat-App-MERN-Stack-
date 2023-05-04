@@ -1,5 +1,3 @@
-# Chat-App-MERN-Stack-
-
 # MERN Stack Web Application with Socket.io
 
 This is a web application built using the MERN stack, which consists of MongoDB, Express.js, React, and Node.js. The application is also secured using bearer token authentication and utilizes the Socket.io library for real-time communication between the client and server.
