@@ -4,7 +4,7 @@ const Message = require("../models/messageModel.js");
 const User = require("../models/userModel");
 
 const sendMessage = asyncHandler(async (req, res) => {
-  const { content , chatId } = req.body;
+    const { content, chatId } = req.body;
 
     if (!content || !chatId) {
         console.log('invalid data passed into request');
@@ -19,7 +19,7 @@ const sendMessage = asyncHandler(async (req, res) => {
 
     try {
         var message = await Message.create(newMessage);
-        message = await message.populate('sender','name pic')
+        message = await message.populate('sender', 'name pic')
         message = await message.populate('chat')
         message = await User.populate(message, { path: 'chat.users', select: 'name pic email' });
 
@@ -33,7 +33,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         throw new Error('Error occured while saving message');
     }
 
-}); 
+});
 
 const allMessages = asyncHandler(async (req, res) => {
     const { chatId } = req.body;
@@ -41,7 +41,7 @@ const allMessages = asyncHandler(async (req, res) => {
 
 
     try {
-        const messages = await Message.find({chat:req.params.chatId}).populate('sender','name pic').populate('chat');
+        const messages = await Message.find({ chat: req.params.chatId }).populate('sender', 'name pic').populate('chat');
 
         res.json(messages);
     }
@@ -54,4 +54,4 @@ const allMessages = asyncHandler(async (req, res) => {
 
 
 
-module.exports = { sendMessage , allMessages };
+module.exports = { sendMessage, allMessages };
