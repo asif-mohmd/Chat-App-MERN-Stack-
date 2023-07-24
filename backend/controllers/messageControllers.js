@@ -38,8 +38,6 @@ const sendMessage = asyncHandler(async (req, res) => {
 const allMessages = asyncHandler(async (req, res) => {
     const { chatId } = req.body;
 
-
-
     try {
         const messages = await Message.find({ chat: req.params.chatId }).populate('sender', 'name pic').populate('chat');
 
@@ -51,7 +49,6 @@ const allMessages = asyncHandler(async (req, res) => {
         throw new Error('Error occured while fetching messages');
     }
 });
-
 
 
 module.exports = { sendMessage, allMessages };
