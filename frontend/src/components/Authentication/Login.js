@@ -90,8 +90,6 @@ function Login() {
         </InputGroup>
       </FormControl>
 
-
-
       <Button
         colorScheme='blue'
         width="100%"
@@ -114,7 +112,6 @@ function Login() {
       >
         Get Guest User Credentials
       </Button>
-
 
     </VStack>
   )
