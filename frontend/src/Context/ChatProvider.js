@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
+
 const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
@@ -10,7 +11,6 @@ const ChatProvider = ({ children }) => {
     const [selectedChat, setSelectedChat] = useState();
     const [chats, setChats] = useState([])
     const [notification, setNotification] = useState([]);
-
 
     const history = useHistory();
 
@@ -31,6 +31,7 @@ const ChatProvider = ({ children }) => {
         </ChatContext.Provider>
     );
 };
+
 
 export const ChatState = () => {
     return useContext(ChatContext);
