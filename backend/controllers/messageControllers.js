@@ -3,6 +3,7 @@ const Chat = require("../models/chatModel");
 const Message = require("../models/messageModel.js");
 const User = require("../models/userModel");
 const sendMessage = asyncHandler(async (req, res) => {
+   
     const { content, chatId } = req.body;
 
     if (!content || !chatId) {
