@@ -20,6 +20,7 @@ const Signup = () => {
   const handleClick = () => setShow(!show)
   const postDetails = (pic) => {
     setLoading(true)
+    
     if (pic === undefined) {
       toast({
         title: "Please select a Image!",
@@ -30,6 +31,7 @@ const Signup = () => {
       })
       return;
     }
+
     if (pic.type === "image/jpeg" || pic.type === "image/png") {
       const data = new FormData()
       data.append("file", pic)
