@@ -50,6 +50,7 @@ function SideDrawer() {
     history.push("/");
   }
 
+
   const toast = useToast();
 
   const handleSearch = async () => {
@@ -75,8 +76,6 @@ function SideDrawer() {
 
       const { data } = await axios.get(`/api/user?search=${search}`, config);
 
-
-
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -90,8 +89,8 @@ function SideDrawer() {
         position: "bottom-left",
       });
     }
-
   };
+  
   const accessChat = async (userId) => {
     console.log(userId);
 
