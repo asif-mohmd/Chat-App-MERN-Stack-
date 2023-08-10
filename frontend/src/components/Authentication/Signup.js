@@ -64,8 +64,6 @@ const Signup = () => {
 
   };
 
-
-
   const submitHandler = async () => {
     setLoading(true)
     if (name === '' || email === '' || password === '' || confirmpassword === '' || pic === '') {

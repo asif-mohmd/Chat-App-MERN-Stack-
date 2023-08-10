@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
-
 const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
